@@ -23,7 +23,7 @@ public class Login {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Bienvenido!");
-        Thread.sleep(3000);
+        esperarRespuesta(3);
 
         while (!ingresoUsuario && !ingresoPass) {
 
