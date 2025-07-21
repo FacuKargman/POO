@@ -24,6 +24,8 @@ public class Login {
 
         System.out.println("Bienvenido!");
         esperarRespuesta(3);
+        System.out.println();
+
 
         while (!ingresoUsuario && !ingresoPass) {
 
