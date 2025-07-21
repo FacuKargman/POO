@@ -17,5 +17,9 @@ public class Main {
         mosquito.picarA(pino);
         System.out.print("Pero luego... picó a: " + mosquito.getUltimoPicado().toString());
 
+        Cafetera cafetera = new Cafetera();
+        cafetera.prepararCafe(new  CapsulaCafe());
+
+
     }
 }

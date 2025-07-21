@@ -17,6 +17,6 @@ public class Cafetera {
     }
 
     public void prepararCafe(CapsulaCafe cafe){
-        System.out.println("Preparando Cafe sabor: ".concat(cafe.toString()));
+        System.out.println("Preparando Cafe sabor: " + cafe.GetSaborCafe());
     }
 }
