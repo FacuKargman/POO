@@ -16,7 +16,7 @@ public class Cafetera {
         this.temperatura = 30;
     }
 
-    public void prepararCafe(){
-        System.out.println("Preparando Cafe");
+    public void prepararCafe(CapsulaCafe cafe){
+        System.out.println("Preparando Cafe sabor: ".concat(cafe.toString()));
     }
 }
