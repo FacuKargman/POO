@@ -6,4 +6,5 @@ public abstract class Actividad {
 
     public Double precioActividad(GrupoAmigos grupo){return 0.0;};
     public boolean aptaParaGrupo(GrupoAmigos grupo){return false;}
+    public Ciudad getCiudad() {return ciudad;}
 }

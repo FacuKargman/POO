@@ -1,9 +1,7 @@
 package Integradores.ViajandoConAmigos;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Paquete {
     private GrupoAmigos grupoAmigos;
@@ -40,10 +38,31 @@ public class Paquete {
         return precioTotalActividades(grupo) + precioTotalHospedaje(grupo) +  precioTotalCiudades(grupo);
     }
 
+    public Ciudad ciudadDondeSeGastaMasEnActividades(){
+        return actividades.stream()
+                .collect(Collectors.groupingBy(
+                        Actividad::getCiudad,
+                        Collectors.summingDouble(a -> a.precioActividad(grupoAmigos))))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+    }
+
     public boolean dentroDelPresupuesto(GrupoAmigos grupoAmigos) {
         return calcularPrecioTotal(grupoAmigos) <= grupoAmigos.getPresupuesto();
     }
 
+    public void eliminarActividadesMasCaras(List<Actividad> actividades, GrupoAmigos grupoAmigos) {
+        // Paso 1: obtener el precio máximo
+        double precioMaximo = actividades.stream()
+                .mapToDouble(a -> a.precioActividad(grupoAmigos))
+                .max()
+                .orElse(Double.NaN); // o 0.0 si preferís
+
+        // Paso 2: eliminar todas las actividades con ese precio
+        actividades.removeIf(a -> a.precioActividad(grupoAmigos) == precioMaximo);
+    }
 
 
 

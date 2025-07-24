@@ -4,66 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hamburguesa {
-    private List<Medallon> medallones = new ArrayList<>();
-    private List<IngredienteExtra> ingredientesExtra = new ArrayList<>();
-    private Pan tipoPan;
+    private List<Ingrediente> medallones = new ArrayList<>();
+    private List<Ingrediente> ingredientes = new ArrayList<>();
+    private Ingrediente pan;
 
-    public void agregarMedallon(Medallon medallon) {
-        medallones.add(medallon);
+    public Hamburguesa(List<Ingrediente> medallones, List<Ingrediente> ingredientes, Ingrediente pan) {
+        this.medallones = medallones;
+        this.ingredientes = ingredientes;
+        this.pan = pan;
     }
 
-    public void eliminarMedallon(Medallon medallon) {
-        medallones.remove(medallon);
+    public Hamburguesa() {}
+
+    public void agregarMedallon(Ingrediente ingrediente){
+        medallones.add(ingrediente);
     }
 
-    public void agregarIngrediente(IngredienteExtra ingredienteExtra) {
-        ingredientesExtra.add(ingredienteExtra);
+    public void agregarIngrediente(Ingrediente ingrediente){
+        ingredientes.add(ingrediente);
     }
 
-    public void eliminarIngrediente(IngredienteExtra ingredienteExtra) {
-        //ingredientesExtra.remove(ingredienteExtra); asi es lo ideal
-        ingredientesExtra.removeFirst();
+    public void agregarPan(Ingrediente ingrediente){
+        pan = ingrediente;
     }
 
-    public void agregarPan(Pan pan) {
-        tipoPan = pan;
+    public boolean puedoFacturar(){
+        return ingredientes.size() <= medallones.size() && pan != null;
     }
 
-    public boolean puedeSerFacturada() {
-        return  (!medallones.isEmpty() && medallones.size() >= ingredientesExtra.size() && tipoPan != null);
+    public Double calcularPrecio(){
+        return medallones.stream().mapToDouble(Ingrediente::getPrecio).sum()
+        + ingredientes.stream().mapToDouble(Ingrediente::getPrecio).sum()
+                + pan.getPrecio();
     }
-
-    private double calcularPrecioMedallones(){
-        double total = 0;
-        for (Medallon m : medallones) {
-            total += m.getPrecio();
-        }
-        return total;
-    }
-
-    private double calcularPrecioExtras(){
-        double total = 0;
-        for (IngredienteExtra e : ingredientesExtra) {
-            total += e.getPrecio();
-        }
-        return total;
-    }
-
-    private double calcularPrecioHamburguesa(){
-        double total = 0;
-        total += calcularPrecioMedallones();
-        total += calcularPrecioExtras();
-        total += tipoPan.getPrecio();
-        return total;
-    }
-
-    public double calcularPrecioTotal(){
-        if (!puedeSerFacturada()) {
-            throw new RuntimeException("La hamburguesa no puede ser facturada");
-        }
-        return calcularPrecioHamburguesa();
-    }
-
-
 
 }
