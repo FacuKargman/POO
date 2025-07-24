@@ -28,14 +28,19 @@ public class Paquete {
 
     public void agregarEstadia(Estadia estadia){estadias.add(estadia);}
 
-    public void agregarActividad(Actividad actividad){
-        if(actividades.stream().anyMatch(a -> a.ciudad.equals(actividad.ciudad))){
-            actividades.add(actividad);
+    public void agregarActividad(Actividad actividad) {
+        if (actividad.aptaParaGrupo(grupoAmigos)) {
+            for (Estadia estadia : estadias) {
+                if (actividad.ciudad.equals(estadia.getCiudad())) {
+                    actividades.add(actividad);
+                    return;
+                }
+            }
         }
     }
 
-    public Double calcularPrecioTotal(GrupoAmigos grupo){
-        return precioTotalActividades(grupo) + precioTotalHospedaje(grupo) +  precioTotalCiudades(grupo);
+    public Double calcularPrecioTotal(){
+        return precioTotalActividades(grupoAmigos) + precioTotalHospedaje(grupoAmigos) +  precioTotalCiudades(grupoAmigos);
     }
 
     public Ciudad ciudadDondeSeGastaMasEnActividades(){
@@ -49,8 +54,8 @@ public class Paquete {
                 .orElse(null);
     }
 
-    public boolean dentroDelPresupuesto(GrupoAmigos grupoAmigos) {
-        return calcularPrecioTotal(grupoAmigos) <= grupoAmigos.getPresupuesto();
+    public boolean dentroDelPresupuesto() {
+        return calcularPrecioTotal() <= grupoAmigos.getPresupuesto();
     }
 
     public void eliminarActividadesMasCaras(List<Actividad> actividades, GrupoAmigos grupoAmigos) {
