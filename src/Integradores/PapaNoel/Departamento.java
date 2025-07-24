@@ -1,10 +1,13 @@
 package Integradores.PapaNoel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Departamento extends Domicilio{
+    private boolean tieneVentanasAbiertas;
 
-    public boolean habilitacionNoel(){return false;}
+    public Departamento(String direccion, Barrio barrio) {
+        this.direccion = direccion;
+        this.barrio = barrio;
+    }
+    public boolean habilitadoPapaNoel(){return tieneVentanasAbiertas;};
+    public boolean esAburrido(){return false;};
 
 }
