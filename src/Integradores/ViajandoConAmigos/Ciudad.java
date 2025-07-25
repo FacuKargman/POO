@@ -9,9 +9,7 @@ public class Ciudad {
         this.tasaTuristica = tasaTuristica;
     }
 
-    public Double getTasaTuristica() {
-        return tasaTuristica;
-    }
+    public Double getTasaTuristica() {return tasaTuristica;}
 
     @Override
     public boolean equals(Object obj) {

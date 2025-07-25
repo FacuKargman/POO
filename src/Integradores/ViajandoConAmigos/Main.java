@@ -10,6 +10,7 @@ public class Main {
         Actividad cataMendoza = new ActividadGrupal(245.0, mendoza, 18);
         Actividad parapenteMdq = new ActividadGrupal(245.0, mdq, 18);
         Actividad paseoVeleroBsas = new ActividadPrivada(720.0, bsas, 6);
+        Actividad paseoVeleroBsas2 = new ActividadPrivada(720.0, bsas, 6);
 
 
         Persona matias = new Persona(19);
@@ -28,8 +29,10 @@ public class Main {
         paquete.agregarActividad(parapenteMdq);
         paquete.agregarActividad(paseoVeleroBsas);
 
+
         Double calculoTotal = paquete.calcularPrecioTotal();
         boolean bool = paquete.dentroDelPresupuesto();
+        Ciudad ciudadCara = paquete.ciudadDondeSeGastaMasEnActividades();
 
 
     }

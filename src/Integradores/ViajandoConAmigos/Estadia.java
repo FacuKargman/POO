@@ -9,15 +9,7 @@ public class Estadia {
         this.dias = dias;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
-
-    public int getDias() {
-        return dias;
-    }
-
-    public Double precioTotalCiudad(){
-        return ciudad.getTasaTuristica() * dias;
-    }
+    public Ciudad getCiudad() {return ciudad;}
+    public int getDias() {return dias;}
+    public Double precioTotalCiudad(){return ciudad.getTasaTuristica() * dias;}
 }

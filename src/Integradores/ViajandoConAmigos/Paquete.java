@@ -44,19 +44,34 @@ public class Paquete {
     }
 
     public Ciudad ciudadDondeSeGastaMasEnActividades(){
-        return actividades.stream()
-                .collect(Collectors.groupingBy(
-                        Actividad::getCiudad,
-                        Collectors.summingDouble(a -> a.precioActividad(grupoAmigos))))
-                .entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(null);
+//        return actividades.stream()
+//                .collect(Collectors.groupingBy(
+//                        Actividad::getCiudad,
+//                        Collectors.summingDouble(a -> a.precioActividad(grupoAmigos))))
+//                .entrySet().stream()
+//                .max(Map.Entry.comparingByValue())
+//                .map(Map.Entry::getKey)
+//                .orElse(null);
+        Map<Ciudad,Double> ciudadCosto = new HashMap<>();
+
+        for  (Actividad actividad : actividades) {
+            if(ciudadCosto.containsKey(actividad.getCiudad())){
+                ciudadCosto.put(actividad.getCiudad(),ciudadCosto.get(actividad.getCiudad()) + actividad.precioActividad(grupoAmigos));
+            }else{
+                ciudadCosto.put(actividad.getCiudad(),actividad.precioActividad(grupoAmigos));
+            }
+        }
+
+        Ciudad ciudadCara = null;
+        Double costo = 0.0;
+        for(Map.Entry<Ciudad,Double> entry : ciudadCosto.entrySet()){
+            if(entry.getValue() > costo){ciudadCara = entry.getKey(); costo = entry.getValue();}
+        }
+
+        return ciudadCara;
     }
 
-    public boolean dentroDelPresupuesto() {
-        return calcularPrecioTotal() <= grupoAmigos.getPresupuesto();
-    }
+    public boolean dentroDelPresupuesto() {return calcularPrecioTotal() <= grupoAmigos.getPresupuesto();}
 
     public void eliminarActividadesMasCaras(List<Actividad> actividades, GrupoAmigos grupoAmigos) {
         // Paso 1: obtener el precio máximo
